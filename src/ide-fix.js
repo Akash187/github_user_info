@@ -8,3 +8,17 @@ Vue.component('v-toolbar-side-icon',{});
 Vue.component('v-toolbar-title', {});
 Vue.component('v-spacer', {});
 Vue.component('v-text-field',{});
+Vue.component('v-layout',{});
+Vue.component('v-navigation-drawer',{});
+Vue.component('v-list',{});
+Vue.component('v-list-tile',{});
+Vue.component('v-list-tile-content',{});
+Vue.component('v-list-tile-title',{});
+// Vue.component('',{});
+// Vue.component('',{});
+// Vue.component('',{});
+// Vue.component('',{});
+// Vue.component('',{});
+// Vue.component('',{});
+// Vue.component('',{});
+
