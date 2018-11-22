@@ -38,7 +38,7 @@
     data () {
       return {
         username: '',
-        message: '',
+        message: 'Enter the Username and press Enter to start Searching.',
         loading: false,
         loader: false,
         total_pages: 0,
@@ -59,6 +59,7 @@
     created(){
       bus.$on('searchUser', async (data) => {
         this.username = data;
+        console.log('Username: ' + this.username);
         try {
           this.loading = true;
           let repositories = [];
@@ -82,6 +83,7 @@
       });
     },
     mounted(){
+      console.log('Mounted');
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         const repositories = [];

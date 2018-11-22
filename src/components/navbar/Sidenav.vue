@@ -1,22 +1,22 @@
 <template>
   <v-navigation-drawer
       v-model="sidenav"
-      absolute
+      fixed
       temporary
       width=240
   >
     <v-list class="pa-1">
-      <v-list-tile @click="">
+      <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-title>
-            Repositories
+            <router-link to="/" exact>Repositories</router-link>
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="">
+      <v-list-tile >
         <v-list-tile-content>
           <v-list-tile-title>
-            User
+            <router-link to="/user" exact>User</router-link>
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -42,5 +42,13 @@
 </script>
 
 <style scoped>
-
+  a{
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+  }
+  .router-link-active{
+    color: orangered;
+  }
 </style>
