@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5 pt-5">
-    <h2 v-if="username.length === 0" class=" text-xs-center">Enter the Username and press Enter to start Searching.</h2>
+    <h2 v-if="username.length === 0" class=" text-xs-center">{{message}}</h2>
     <v-flex xs12 sm8 md6 lg4 v-if="username.length !== 0">
     <v-card class="mx-3 pa-3 mb-5">
       <div class="profile">
@@ -52,6 +52,7 @@
         name: '',
         image_url: '',
         bio: '',
+        message: 'Enter the Username and press Enter to start Searching.',
         public_repos: '0',
         location: '',
         followers: '0',
@@ -63,7 +64,6 @@
     created(){
       bus.$on('searchUser', async (data) => {
         this.username = data;
-        console.log('Username2: ' + this.username);
         try {
           const response = await fetch(`https://api.github.com/users/${data}`);
           const info = await response.json();
@@ -77,15 +77,11 @@
           this.following = info.following;
           this.profile = info.html_url;
           this.website = info.blog;
-
         }catch (error){
-          console.log(`Error fetching user : ${error}`);
+          this.message = `Error fetching user`;
         }
       });
     },
-    mounted(){
-      console.log('Mounted');
-    }
   }
 </script>
 

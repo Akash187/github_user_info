@@ -59,7 +59,6 @@
     created(){
       bus.$on('searchUser', async (data) => {
         this.username = data;
-        console.log('Username: ' + this.username);
         try {
           this.loading = true;
           let repositories = [];
@@ -83,7 +82,6 @@
       });
     },
     mounted(){
-      console.log('Mounted');
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         const repositories = [];
