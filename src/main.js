@@ -7,6 +7,8 @@ import Routes from './routes/routes';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
+export const bus = new Vue();
+
 Vue.use(Vuetify);
 
 Vue.use(VueRouter);

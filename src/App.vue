@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
+    <Repositories></Repositories>
   </div>
 </template>
 
 <script>
 import Navbar from './components/navbar/Navbar';
+import Repositories from './components/data/Repositories';
 
 export default {
   name: 'app',
   components: {
-    Navbar
+    Navbar,
+    Repositories
   }
 }
 </script>
