@@ -43,12 +43,21 @@
 </template>
 
 <script>
-  import {bus} from '../../main';
   export default {
     name: "user",
+    props: {
+      username: {
+        type: String,
+        require: true
+      }
+    },
+    watch: {
+      username: function(val, oldVal) {
+        this.setup();
+      }
+    },
     data (){
       return {
-        username: '',
         name: '',
         image_url: '',
         bio: '',
@@ -61,26 +70,30 @@
         website: ''
       }
     },
-    created(){
-      bus.$on('searchUser', async (data) => {
-        this.username = data;
-        try {
-          const response = await fetch(`https://api.github.com/users/${data}`);
-          const info = await response.json();
-          this.username = info.login;
-          this.name = info.name;
-          this.image_url = info.avatar_url;
-          this.bio = info.bio;
-          this.location = info.location;
-          this.public_repos = info.public_repos;
-          this.followers = info.followers;
-          this.following = info.following;
-          this.profile = info.html_url;
-          this.website = info.blog;
-        }catch (error){
-          this.message = `Error fetching user`;
+    methods: {
+      setup: async function () {
+        if(this.username){
+          //console.log("UserName : " + this.username);
+          try {
+            const response = await fetch(`https://api.github.com/users/${this.username}`);
+            const info = await response.json();
+            this.name = info.name;
+            this.image_url = info.avatar_url;
+            this.bio = info.bio;
+            this.location = info.location;
+            this.public_repos = info.public_repos;
+            this.followers = info.followers;
+            this.following = info.following;
+            this.profile = info.html_url;
+            this.website = info.blog;
+          }catch (error){
+            this.message = `Error fetching user`;
+          }
         }
-      });
+      }
+    },
+    created(){
+      this.setup()
     },
   }
 </script>

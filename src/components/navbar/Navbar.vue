@@ -3,7 +3,9 @@
     <v-toolbar dark color="orange" fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <font-awesome-icon :icon="['fab', 'github']" size="2x" class="ml-2 hidden-sm-and-up"></font-awesome-icon>
-      <v-toolbar-title class="white--text hidden-xs-only">Github</v-toolbar-title>
+      <v-toolbar-title class="hidden-xs-only">
+        <router-link to="/" exact style="text-decoration: none"><div class="white--text">Github</div></router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
           placeholder="Enter Username and press Enter"
@@ -32,7 +34,7 @@
     },
     methods: {
       search: function () {
-        bus.$emit('searchUser', this.username.trim());
+        this.$emit('updateUser', this.username.trim());
       }
     }
   }

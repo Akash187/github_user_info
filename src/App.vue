@@ -1,21 +1,29 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <Navbar @updateUser="onUserUpdate"></Navbar>
     <keep-alive>
-      <router-view></router-view>
+      <router-view :username="userName"></router-view>
     </keep-alive>
   </div>
 </template>
 
 <script>
 import Navbar from './components/navbar/Navbar';
-import Repositories from './components/data/Repositories';
 
 export default {
   name: 'app',
   components: {
-    Navbar,
-    Repositories
+    Navbar
+  },
+  data(){
+    return {
+      userName: ''
+    }
+  },
+  methods: {
+    onUserUpdate: function (updatedUserName) {
+      this.userName = updatedUserName;
+    }
   }
 }
 </script>

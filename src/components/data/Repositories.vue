@@ -31,13 +31,22 @@
 </template>
 
 <script>
-  import {bus} from '../../main';
 
   export default {
     name: "Repositories",
+    props: {
+      username: {
+        type: String,
+        require: true
+      }
+    },
+    watch: {
+      username: function(val, oldVal) {
+        this.setup();
+      }
+    },
     data () {
       return {
-        username: '',
         message: 'Enter the Username and press Enter to start Searching.',
         loading: false,
         loader: false,
@@ -56,30 +65,35 @@
         ]
       }
     },
-    created(){
-      bus.$on('searchUser', async (data) => {
-        this.username = data;
-        try {
-          this.loading = true;
-          let repositories = [];
-          this.current_page = 1;
-          this.total_pages = 0;
-          const response1 = await fetch(`https://api.github.com/users/${this.username}`);
-          const info = await response1.json();
-          this.total_pages = Math.ceil(info.public_repos/30);
-          const response = await fetch(`https://api.github.com/users/${this.username}/repos`);
-          const repos = await response.json();
-          repos.forEach((repo) => {
-            repositories.push({...repo});
-          });
-        this.repository = repositories;
-        this.message = `${this.username} Not Found`;
-        }catch (error){
-          this.message = `${this.username} Not Found`;
-        }finally {
-          this.loading = false;
+    methods: {
+      setup: async function() {
+        //console.log("Repositories Data : " + this.username);
+        if(this.username){
+          try {
+            this.loading = true;
+            let repositories = [];
+            this.current_page = 1;
+            this.total_pages = 0;
+            const response1 = await fetch(`https://api.github.com/users/${this.username}`);
+            const info = await response1.json();
+            this.total_pages = Math.ceil(info.public_repos/30);
+            const response = await fetch(`https://api.github.com/users/${this.username}/repos`);
+            const repos = await response.json();
+            repos.forEach((repo) => {
+              repositories.push({...repo});
+            });
+            this.repository = repositories;
+            this.message = `${this.username} Not Found`;
+          }catch (error){
+            this.message = `${this.username} Not Found`;
+          }finally {
+            this.loading = false;
+          }
         }
-      });
+      }
+    },
+    created(){
+      this.setup();
     },
     mounted(){
       window.onscroll = () => {
